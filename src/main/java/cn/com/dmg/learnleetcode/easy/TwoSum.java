@@ -18,6 +18,14 @@ public class TwoSum {
     }
 
 
+    /**
+     * 暴力解法 时间复杂度O(n^2) 空间复杂度O(1)
+     * @author zhum
+     * @date 2022/5/10 11:14
+     * @param nums
+     * @param target
+     * @return int[]
+     */
     public static int[] twoSum(int[] nums, int target) {
         /*
             给定一个整数数组 nums 和一个整数目标值 target，
@@ -83,8 +91,39 @@ public class TwoSum {
     }
 
 
-
+    /**
+     * 哈希表两次遍历 时间复杂度O(n) 通过空间换时间 空间复杂度 O(n)
+     * @author zhum
+     * @date 2022/5/10 11:15
+     * @param nums
+     * @param target
+     * @return int[]
+     */
     public static int[] twoSum2(int[] nums, int target) {
+        //1.遍历数组，将数组的值和值所在的索引存储到map中
+        HashMap<Integer, Integer> map = new HashMap<>(nums.length);
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i],i);
+        }
+        //2.再次遍历数组，找到另一个匹配的值使用之和为target 并且 当前值不等于map中的key
+        for (int i = 0; i < nums.length; i++) {
+            if(map.containsKey(target - nums[i]) && i != map.get(target - nums[i])){
+                return new int[]{i, map.get(target - nums[i])};
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * 哈希表一次遍历 时间复杂度O(n) 空间复杂度 O(n)
+     * @author zhum
+     * @date 2022/5/10 11:15
+     * @param nums
+     * @param target
+     * @return int[]
+     */
+    public static int[] twoSum3(int[] nums, int target) {
         Map<Integer,Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             if(map.containsKey(target - nums[i])){
