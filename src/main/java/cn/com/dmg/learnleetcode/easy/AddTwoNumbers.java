@@ -22,8 +22,12 @@ public class AddTwoNumbers {
         l2.next = l2Next;
         l2Next.next = new ListNode(4);
 
-        ListNode listNode = addTwoNumbers(l1, l2);
+        ListNode listNode = addTwoNumbers2(l1, l2);
         System.out.println(listNode);
+
+        System.out.println(Integer.MAX_VALUE);
+
+
     }
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -73,6 +77,42 @@ public class AddTwoNumbers {
 
         }
         return listNode;
+    }
+
+
+    public static ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+        ListNode resultListNode = null;
+        ListNode nextNode = null;
+        //进位值
+        int carry = 0;
+
+        //对两个链表进行遍历
+        while (l1 != null || l2 != null){
+            int i1 = l1 == null ? 0 : l1.val;
+            int i2 = l2 == null ? 0 : l2.val;
+            //和
+            int sum = i1 + i2 + carry;
+            if(resultListNode == null){
+                resultListNode = nextNode = new ListNode(sum % 10);
+            } else {
+                nextNode.next = new ListNode(sum % 10);
+                nextNode = nextNode.next;
+            }
+            //计算新的 carry
+            carry = sum / 10;
+            //获得新的l1 和 l2
+            if(l1 != null){
+                l1 = l1.next;
+            }
+            if(l2 != null){
+                l2 = l2.next;
+            }
+        }
+        //最后如果carry>0也要加上
+        if(carry > 0){
+            nextNode.next = new ListNode(carry);
+        }
+        return resultListNode;
     }
 
 
